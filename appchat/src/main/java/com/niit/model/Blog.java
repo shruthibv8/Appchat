@@ -12,7 +12,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Blog")
 @SequenceGenerator(name="blogidseq",sequenceName="myblogseq")
-public class Blog {
+public class Blog 
+{
 @Id
 @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="blogidseq")
 int blogId;

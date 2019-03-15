@@ -18,6 +18,7 @@ import com.niit.model.Blog;
 import com.niit.model.BlogComment;
 import com.niit.model.Forum;
 import com.niit.model.ForumComment;
+import com.niit.model.Friend;
 import com.niit.model.Job;
 import com.niit.model.User;
 
@@ -54,6 +55,7 @@ public class DBConfiguration
 	   sessionFactoryBuilder.addAnnotatedClass(ForumComment.class);
 	   sessionFactoryBuilder.addAnnotatedClass(User.class);
 	   sessionFactoryBuilder.addAnnotatedClass(Job.class);
+	   sessionFactoryBuilder.addAnnotatedClass(Friend.class);
 		
 		SessionFactory sessionFactory=sessionFactoryBuilder.buildSessionFactory();
 		System.out.println("SessionFactory Object");

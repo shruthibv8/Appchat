@@ -22,7 +22,7 @@ public class BlogTest
 		context.refresh();
 		blogDAO=(BlogDAO)context.getBean("blogDAO");
 	}
-	//@Ignore
+	@Ignore
 	@Test
 	public void addBlog()
 	{
