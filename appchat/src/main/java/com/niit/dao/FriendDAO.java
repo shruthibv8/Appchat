@@ -3,13 +3,17 @@ package com.niit.dao;
 import java.util.List;
 
 import com.niit.model.Friend;
+import com.niit.model.User;
 
 public interface FriendDAO 
 {
-	public boolean addFriend(Friend friend);
-	public boolean deleteFriend(Friend friend);
-	
-	public List<Friend> getAllFriends();
-	
+	List<User> getAllSuggestedUsers(String email);
+	List<Friend> pendingRequests(String email);
+	void friendRequest(Friend friend);
+	void acceptFriendRequest(Friend friend);
+	void deleteFriendRequest(Friend friend);
+	List<User> listOfFriends(String email);
 
 }
+	
+

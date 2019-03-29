@@ -2,74 +2,84 @@ package com.niit.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table
-@SequenceGenerator(name="jobidseq",sequenceName="myjobseq")
-public class Job {
-@Id
-@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="jobidseq")
-int jobId;
-String designation;
-String jobDesc;
-String qualification;
-String status;
+@Table(name="Job")
 
-Date lastDate;
 
-public int getJobId() {
-	return jobId;
+public class Job 
+{
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+private int id;
+	@Column(nullable=false)
+private String jobTitle;
+private String description;
+private String skillsRequired;
+private Date postedOn;
+private String location;
+private String yrsOfExp;
+private String companyname;
+private String salary;
+public int getId() {
+	return id;
 }
-
-public void setJobId(int jobId) {
-	this.jobId = jobId;
+public String getJobTitle() {
+	return jobTitle;
 }
-
-public String getDesignation() {
-	return designation;
+public void setJobTitle(String jobTitle) {
+	this.jobTitle = jobTitle;
 }
-
-public void setDesignation(String designation) {
-	this.designation = designation;
+public String getDescription() {
+	return description;
 }
-
-public String getJobDesc() {
-	return jobDesc;
+public void setDescription(String description) {
+	this.description = description;
 }
-
-public void setJobDesc(String jobDesc) {
-	this.jobDesc = jobDesc;
+public String getSkillsRequired() {
+	return skillsRequired;
 }
-
-public String getQualification() {
-	return qualification;
+public void setSkillsRequired(String skillsRequired) {
+	this.skillsRequired = skillsRequired;
 }
-
-public void setQualification(String qualification) {
-	this.qualification = qualification;
+public Date getPostedOn() {
+	return postedOn;
 }
-
-public String getStatus() {
-	return status;
+public void setPostedOn(Date postedOn) {
+	this.postedOn = postedOn;
 }
-
-public void setStatus(String status) {
-	this.status = status;
+public String getLocation() {
+	return location;
 }
-
-public Date getLastDate() {
-	return lastDate;
+public void setLocation(String location) {
+	this.location = location;
 }
-
-public void setLastDate(Date lastDate) {
-	this.lastDate = lastDate;
+public String getYrsOfExp() {
+	return yrsOfExp;
 }
-
+public void setYrsOfExp(String yrsOfExp) {
+	this.yrsOfExp = yrsOfExp;
+}
+public String getCompanyname() {
+	return companyname;
+}
+public void setCompanyname(String companyname) {
+	this.companyname = companyname;
+}
+public String getSalary() {
+	return salary;
+}
+public void setSalary(String salary) {
+	this.salary = salary;
+}
+public void setId(int id) {
+	this.id = id;
+}
 
 }

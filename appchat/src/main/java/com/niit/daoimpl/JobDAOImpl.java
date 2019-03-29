@@ -13,73 +13,44 @@ import org.springframework.stereotype.Repository;
 import com.niit.dao.JobDAO;
 import com.niit.model.Job;
 
-@Repository("jobDAO")
+@Repository
 @Transactional
-
 public class JobDAOImpl implements JobDAO 
 {
+	
 	@Autowired
-	SessionFactory sessionFactory;
+    private SessionFactory sf;
 
-	public boolean addJob(Job job)
+	public void addJob(Job job)
 	{
-		try 
-		{
-	     sessionFactory.getCurrentSession().save(job);
-		 return true;
-		} 
-		catch (Exception e) {
-			System.out.println("Exception Arised:Adding Job"+e);
-			return false;
-		}
+	Session s =sf.getCurrentSession();
+	s.save(job);
 	}
-
-	public boolean deleteJob(Job job)
+	public List<Job> getAllJobs()
 	{
-		try 
-		{
-	 sessionFactory.getCurrentSession().save(job);
-	 return true;
-		} 
-		catch (Exception e) {
-	 System.out.println("Exception Arised:Deleting Job"+e);
-	return false;
-		}
+		Session s =sf.getCurrentSession();
+		Query q=s.createQuery("from Job");
+		List<Job> jobs=q.list();
+		return jobs;
 	}
-	
-	
-
-	public boolean updateJob(Job job)
+	public void deleteJob(int id) 
 	{
-		try 
-		{
-	    sessionFactory.getCurrentSession().save(job);
-	    return true;
-		} 
-		catch (Exception e) 
-		{
-	    System.out.println("Exception Arised:Updating Job"+e);
-	    return false;
-		}
+		Session s =sf.getCurrentSession();
+		Job job=(Job)s.get(Job.class, id);
+		s.delete(job);
+		
 	}
-	
-
-	public Job getJob(int jobId)
+	public Job getJob(int id)
 	{
-		Session session = sessionFactory.openSession();
-		Job job = session.get(Job.class, jobId);
-		session.close();
+		Session s =sf.getCurrentSession();
+		Job job=(Job)s.get(Job.class, id);
 		return job;
 	}
 
-	public List<Job> getJobList() 
+	public void updateJob(Job job) 
 	{
-		Session session=sessionFactory.openSession();
-		Query query=session.createQuery("from Job");
-		@SuppressWarnings("unchecked")
-		List<Job> listJob=(List<Job>)query.list();
-		session.close();
-		return listJob;
+		Session session=sf.getCurrentSession();
+		session.update(job);
 		
 	}
 

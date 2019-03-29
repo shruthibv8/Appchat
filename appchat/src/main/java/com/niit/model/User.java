@@ -1,64 +1,68 @@
 package com.niit.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name="User")
 public class User
 {
-@Id
-String username;
-String password;
-String customerName;
-String emailId;
-String role;
-String status;
-String isOnline;
-public String getUsername() {
-	return username;
-}
-public void setUsername(String username) {
-	this.username = username;
-}
-public String getPassword() {
-	return password;
-}
-public void setPassword(String password) {
-	this.password = password;
-}
-public String getCustomerName() {
-	return customerName;
-}
-public void setCustomerName(String customerName) {
-	this.customerName = customerName;
-}
-public String getEmailId() {
-	return emailId;
-}
-public void setEmailId(String emailId) {
-	this.emailId = emailId;
-}
-public String getRole() {
-	return role;
-}
-public void setRole(String role) {
-	this.role = role;
-}
-public String getStatus() {
-	return status;
-}
-public void setStatus(String status) {
-	this.status = status;
-}
-public String getIsOnline() {
-	return isOnline;
-}
-public void setIsOnline(String isOnline) {
-	this.isOnline = isOnline;
-}
-
+	@Id
+	private String email;
+	@Column(nullable=false)
+	private String password;
+	@Column(nullable=false)
+	private String firstname;
+	private String lastname;
+	private String phonenumber;
+	@Column(nullable=false)
+	private String role;
+	@Column(name="onlinestatus")
+	private boolean online;
+	public String getEmail() {
+		return email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getFirstname() {
+		return firstname;
+	}
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+	public String getLastname() {
+		return lastname;
+	}
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+	public String getPhonenumber() {
+		return phonenumber;
+	}
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public boolean isOnline() {
+		return online;
+	}
+	public void setOnline(boolean online) {
+		this.online = online;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 
 }

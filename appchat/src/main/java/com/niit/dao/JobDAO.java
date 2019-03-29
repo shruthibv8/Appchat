@@ -6,10 +6,12 @@ import com.niit.model.Job;
 
 public interface JobDAO
 {
-	public boolean addJob(Job job);
-	public boolean deleteJob(Job job);
-	public boolean updateJob(Job job);
-	public Job getJob(int jobId);
 	
-	public List<Job> getJobList();
+	void addJob(Job job);
+	List <Job> getAllJobs();
+	void deleteJob(int id);
+	Job getJob(int id);
+	void updateJob(Job job);
+
+	
 }

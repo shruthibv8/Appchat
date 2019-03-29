@@ -1,121 +1,76 @@
 package com.niit.daoimpl;
 
-
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.niit.dao.UserDAO;
 import com.niit.model.User;
-@Repository("UserDAO")
+
+
+@Repository
 @Transactional
+
 public class UserDAOImpl implements UserDAO
 {
-@Autowired
-SessionFactory sessionFactory;
-
-	public boolean registerUser(User user)
-	{
-	try
-	{
-		sessionFactory.getCurrentSession().save(user);
-		return true;
-	}
-	catch(Exception e)
-	{
-		System.out.println("Exception Arised:Adding User"+e);
-	return false;
-}
-	}
-
-	public boolean updateUser(User user)
-	{
-		try
+	@Autowired
+	private SessionFactory sessionFactory;
+		
+		public void UserDaoImpl()
 		{
-			sessionFactory.getCurrentSession().update(user);
-			return true;
+			System.out.println("UserDaoImpl bean is created");
 		}
-		catch(Exception e)
+		
+		public void registerUser(User user)
 		{
-			System.out.println("Exception Arised:Updating User"+e);
-		return false;
-	}
-	}
+			Session session=sessionFactory.getCurrentSession();
+			session.save(user);
 
-	public User getUser(String username)
-	{
-		Session session=sessionFactory.openSession();
-		User user=session.get(User.class,username);
-		session.close();
-		return user;
-	}
+		}
 
-	public boolean makeOffline(User user)
-	{
-		try
+		public boolean isEmailValid(String email)
 		{
-			user.setIsOnline("Off");
-			sessionFactory.getCurrentSession().update(user);
-			return true;
+			//if email is unique -> return true
+			//if email already exists in the table -> return false
+			//select * from user_s190124 where email=? -> 0 row [true]
+			//									          1 row [false]
+			
+			Session session=sessionFactory.getCurrentSession();
+			User user=(User)session.get(User.class,email);
+			if(user==null)
+				return true;//entered email is unique
+			else
+				return false;//entered email is duplicate
+		}
+
+		public User login(User user)
+		{//user.email='' and user.password=''
+			Session session = sessionFactory.getCurrentSession();
+			Query query=session.createQuery("from User where email=? and password=?");
+			query.setString(0, user.getEmail());
+			query.setString(1, user.getPassword());
+			return (User)query.uniqueResult();//1 user or null
+			//for invalid credentials - return null
+			//for valid credentials - return 1 object
+		}
+
+		public void update(User user) 
+		{
+			Session session=sessionFactory.getCurrentSession();
+			session.update(user);
 			
 		}
-		catch(Exception e)
-		{
-			System.out.println("Exception Arised:Make Offline:"+e);
-			return false;
-		}
-	}
 
-	public boolean makeOnline(User user)
-	{
-		try
+		public User getUser(String email)
 		{
-			user.setIsOnline("On");
-			sessionFactory.getCurrentSession().update(user);
-			return true;
-			
+			Session session=sessionFactory.getCurrentSession();
+			User user=(User)session.get(User.class, email);
+			return user;
 		}
-		catch(Exception e)
-		{
-			System.out.println("Exception Arised:Make Online"+e);
-			return false;
-		}
-	}
 
-	public boolean approveUser(User user)
-	{
-		try
-		{
-			user.setStatus("A");
-			sessionFactory.getCurrentSession().update(user);
-			return true;
-			
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception Arised:Approve User:"+e);
-			return false;
-		}
-	}
-
-	public boolean rejectUser(User user) 
-	{
-		try
-		{
-			user.setStatus("R");
-			sessionFactory.getCurrentSession().update(user);
-			return true;
-			
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception Arised:Reject User:"+e);
-			return false;
-		}
-	
-	}
 
 }
