@@ -62,7 +62,7 @@ public abstract class BlogDAOImpl implements BlogDAO
 		session.delete(blog);
 		
 	}
-	public void updateBlogPost(Blog blog) 
+	public void updateBlog(Blog blog) 
 	{
 		Session session=sessionFactory.getCurrentSession();
 		 session.update(blog);
